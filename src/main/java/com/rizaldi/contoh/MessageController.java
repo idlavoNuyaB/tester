@@ -22,8 +22,8 @@ public class MessageController {
     @EventMapping
     public void handle(MessageEvent<TextMessageContent> event) {
         String text = event.getMessage().getText();
-           TextMessage balasan=new TextMessage(jawaban);
-           ReplyMessage replyMessage=new ReplyMessage(replyToken,balasan);
+           TextMessage balasan=new TextMessage();
+           ReplyMessage replyMessage=new ReplyMessage(event.replyToken,balasan);
            client.replyMessage(replyMessage);
     }
 }
