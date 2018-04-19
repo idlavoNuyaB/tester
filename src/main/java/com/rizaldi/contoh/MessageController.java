@@ -21,16 +21,32 @@ public class MessageController {
 
     @EventMapping
     public void handle(MessageEvent<TextMessageContent> event) {
-        String text = event.getMessage().getText();
-        TextMessage message = new TextMessage(text);
-        ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(), message);
-        client.replyMessage(replyMessage);
+        String text = event.getMessage().getText().toLowerCase();
+        String[] pesanSplit = text.split(" ");
+        if (pesanSplit[0].equals("apakah")) {
+            String jawaban = getRandomJawaban();
+            String replyToken = event.getReplyToken();
+
+        }
     }
 
-    @EventMapping
-    public void handle(FollowEvent event) {
-        TextMessage message = new TextMessage("halo bangsat");
-        ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(), message);
-        client.replyMessage(replyMessage);
+        private String getRandomJawaban(){
+            String jawaban="";
+            int random=new random().nextInt();
+            if(random%2==0){
+                jawaban="Ya";
+            }
+            else{
+                jawaban="Tidak";
+            }
+            return jawaban;
+        }
+
+        private void balasChat(String replyToken,String jawaban) {
+            TextMessage balasan=new TextMessage(jawaban);
+            ReplyMessage replyMessage=new ReplyMessage(replyToken,balasan);
+            client.replyMessage(replyMessage);
+        }
     }
 }
+
