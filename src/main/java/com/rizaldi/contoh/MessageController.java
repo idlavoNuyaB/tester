@@ -23,7 +23,7 @@ public class MessageController {
     public void handle(MessageEvent<TextMessageContent> event) {
         String text = event.getMessage().getText();
            TextMessage balasan=new TextMessage();
-           ReplyMessage replyMessage=new ReplyMessage(event.replyToken,balasan);
+           ReplyMessage replyMessage=new ReplyMessage(event.getreplyToken(),balasan);
            client.replyMessage(replyMessage);
     }
 }
