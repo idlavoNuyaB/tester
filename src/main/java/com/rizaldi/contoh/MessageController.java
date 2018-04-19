@@ -22,9 +22,16 @@ public class MessageController {
     @EventMapping
     public void handle(MessageEvent<TextMessageContent> event) {
         String text = event.getMessage().getText();
-           TextMessage balasan=new TextMessage();
-           ReplyMessage replyMessage=new ReplyMessage(event.getreplyToken(),balasan);
-           client.replyMessage(replyMessage);
+        TextMessage message = new TextMessage(text);
+        ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(), message);
+        client.replyMessage(replyMessage);
+    }
+
+    @EventMapping
+    public void handle(FollowEvent event) {
+        TextMessage message = new TextMessage("halo bangsat");
+        ReplyMessage replyMessage = new ReplyMessage(event.getReplyToken(), message);
+        client.replyMessage(replyMessage);
     }
 }
 
